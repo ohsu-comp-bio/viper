@@ -46,5 +46,6 @@ expr_s <- as.matrix(expr_dt)
 cat("Running VIPER")
 vpres <- viper(expr_s, regul, verbose=TRUE)
 
+cat("") # "verbose" from viper() doesn't terminate its last line correctly.
 cat("Writing out activity scores")
-write.table(vpres, file=file.path(outdir, 'viper_activities.tsv'), sep='\t', quote=FALSE)
+write.table(vpres, file=file.path(outdir, 'viper_activities.tsv'), sep="\t", quote=FALSE)
