@@ -4,8 +4,8 @@ library(ggplot2)
 library(reshape)
 
 parser <- OptionParser(option_list=list(
-  make_option(c("-o", "--outdir"), action="store", type='character',
-        help='Path to output directory.'),
+  make_option(c("-o", "--output"), action="store", type='character',
+        help='Path to output file, saved as PNG.'),
 
   make_option(c("-a", "--activity"), action="store", type='character',
         help='Path to VIPER activity output file.'),
@@ -18,14 +18,14 @@ parser <- OptionParser(option_list=list(
 ))
 
 opt <- parse_args(parser)
-outdir <- opt$o
+output <- opt$o
 activity <- opt$a
 sample <- opt$s
 gene <- opt$g
 
-if (is.null(outdir)) {
+if (is.null(output)) {
   print_help(parser)
-  stop("--outdir is required")
+  stop("--output is required")
 }
 if (is.null(activity)) {
   print_help(parser)
@@ -40,6 +40,7 @@ if (is.null(gene)) {
   stop("--gene is required")
 }
 
+cat("Loading activity data")
 # Raw data
 z <- read.csv(activity, sep="\t")
 # Reshaped to column-major
@@ -48,9 +49,19 @@ names(m)[names(m) == 'value'] <- 'activity'
 
 # Samples for the gene of interest
 s1 <- m[m$gene == gene, ]
+
+if (nrow(s1) == 0) {
+  stop("gene is not found in activity data")
+}
+
 # Sample of interest for marker
 s2 <- s1[s1$sample == sample, ]
 
+if (nrow(s2) == 0) {
+  stop("sample is not found in activity data for the given gene")
+}
+
+cat("Generating plot")
 ggplot(s1,
   aes(
     y=gene,
@@ -85,6 +96,6 @@ geom_text(
   hjust=0.5,
   size=3
 ) + 
-ggtitle("ENSG00000001167.14")
+ggtitle(gene)
 
-ggsave("out.png", width=10, height=2)
+ggsave(output, width=10, height=2)
