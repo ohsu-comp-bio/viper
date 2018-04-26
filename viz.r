@@ -1,3 +1,4 @@
+#!/usr/bin/env Rscript
 suppressPackageStartupMessages(require(optparse))
 library(ggplot2)
 library(reshape)

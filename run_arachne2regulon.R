@@ -1,10 +1,11 @@
+#!/usr/bin/env Rscript
 suppressPackageStartupMessages(require(optparse))
 suppressPackageStartupMessages(require(Biobase))
 suppressPackageStartupMessages(require(viper))
 
-opt <- OptionParser(option_list=list(
-  make_option(c("-o", "--outdir"), action="store", type='character',
-        help='Path to output directory.'),
+parser <- OptionParser(option_list=list(
+  make_option(c("-o", "--output"), action="store", type='character',
+        help='Path to output.'),
   make_option(c("-e", "--expr"), action="store", type='character',
         help='Path to input expression matrix used to build ARACNE network.'),
   make_option(c("-n", "--network"), action="store", type='character',
@@ -12,13 +13,13 @@ opt <- OptionParser(option_list=list(
 ))
 
 opt <- parse_args(parser)
-outdir <- opt$o
+output <- opt$o
 expr_fl <- opt$e
 network_fl <- opt$n
 
-if (is.null(outdir)) {
+if (is.null(output)) {
   print_help(parser)
-  stop("--outdir is required")
+  stop("--output is required")
 }
 
 if (is.null(expr_fl)) {
@@ -31,9 +32,6 @@ if (is.null(network_fl)) {
   stop("--network is required")
 }
 
-# print session info
-writeLines(capture.output(sessionInfo()), file.path(outdir, "RsessionInfo.txt"))
-
 cat("Loading expression data from which ARACNE network was derived in R.")
 expr_dt <- read.table(expr_fl, row.names=1, sep='\t', check.names=FALSE, header=TRUE)
 expr_a <- as.matrix(expr_dt)
@@ -41,4 +39,4 @@ expr_a <- as.matrix(expr_dt)
 cat("Loading ARACNE network in R and converting to regulon obj")
 regul <- aracne2regulon(network_fl, expr_a)
 
-saveRDS(regul, file=file.path(outdir, 'regulons.rds'))
+saveRDS(regul, file=output)

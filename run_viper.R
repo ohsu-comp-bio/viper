@@ -1,3 +1,4 @@
+#!/usr/bin/env Rscript
 suppressPackageStartupMessages(require(optparse))
 suppressPackageStartupMessages(library(Biobase))
 suppressPackageStartupMessages(library(viper))
