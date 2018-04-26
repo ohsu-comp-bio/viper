@@ -4,8 +4,8 @@ suppressPackageStartupMessages(library(viper))
 
 
 parser <- OptionParser(option_list=list(
-  make_option(c("-o", "--outdir"), action="store", type='character',
-        help='Path to output directory.'),
+  make_option(c("-o", "--output"), action="store", type='character',
+        help='Path to output file.'),
 
   make_option(c("-r", "--regulons"), action="store", type='character',
         help='Path to RDS file containing network regulons.'),
@@ -16,13 +16,13 @@ parser <- OptionParser(option_list=list(
 ))
 
 opt <- parse_args(parser)
-outdir <- opt$o
+output <- opt$o
 reg_fl <- opt$r
 expr_fl <- opt$e
 
-if (is.null(outdir)) {
+if (is.null(output)) {
   print_help(parser)
-  stop("--outdir is required")
+  stop("--output is required")
 }
 if (is.null(reg_fl)) {
   print_help(parser)
@@ -33,9 +33,6 @@ if (is.null(expr_fl)) {
   stop("--expr is required")
 }
 
-# print session info
-writeLines(capture.output(sessionInfo()), file.path(outdir, "RsessionInfo.txt"))
-               
 cat("Loading network regulons.")
 regul <- readRDS(reg_fl)
 
@@ -48,4 +45,4 @@ vpres <- viper(expr_s, regul, verbose=TRUE)
 
 cat("") # "verbose" from viper() doesn't terminate its last line correctly.
 cat("Writing out activity scores")
-write.table(vpres, file=file.path(outdir, 'viper_activities.tsv'), sep="\t", quote=FALSE)
+write.table(vpres, file=output, sep="\t", quote=FALSE)
