@@ -42,7 +42,7 @@ expr_dt <- read.table(expr_fl, row.names=1, sep='\t', check.names=FALSE, header=
 expr_s <- as.matrix(expr_dt)
 
 cat("Running VIPER")
-vpres <- viper(expr_s, regul, verbose=TRUE)
+vpres <- viper(expr_s, regul, verbose=TRUE, nes=TRUE)
 
 cat("") # "verbose" from viper() doesn't terminate its last line correctly.
 cat("Writing out activity scores")
