@@ -1,6 +1,6 @@
 # Conda metadata description
 package:
-  name: viper
+  name: ohsu-compbio-viper
   version: "0.1.0"
 
 requirements:
