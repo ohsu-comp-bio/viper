@@ -12,8 +12,7 @@ parser <- OptionParser(option_list=list(
         help='Path to RDS file containing network regulons.'),
         
   make_option(c("-e", "--expr"), action="store", type='character',
-        help='Path to file containing expression of samples for which viper\n
-        activity scores are desired.')		
+        help='Path to file containing expression of samples for which viper activity scores are desired.')		
 ))
 
 opt <- parse_args(parser)
