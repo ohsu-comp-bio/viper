@@ -42,7 +42,7 @@ if (is.null(gene)) {
 
 cat("Loading activity data")
 # Raw data
-z <- read.csv(activity, sep="\t")
+z <- read.table(activity, sep="\t", check.names=FALSE, header=TRUE, row.names=1)
 # Reshaped to column-major
 m <- melt(t(z), varnames=c("sample", "gene"), value.name="activity")
 names(m)[names(m) == 'value'] <- 'activity'

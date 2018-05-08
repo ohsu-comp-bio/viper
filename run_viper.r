@@ -46,4 +46,4 @@ vpres <- viper(expr_s, regul, verbose=TRUE, nes=TRUE)
 
 cat("") # "verbose" from viper() doesn't terminate its last line correctly.
 cat("Writing out activity scores")
-write.table(vpres, file=output, sep="\t", quote=FALSE)
+write.table(vpres, file=output, sep="\t", col.names=NA, row.names=TRUE)
