@@ -31,7 +31,7 @@ Options:
 		Path to ARACNE network.txt.
 ```
 
-Example:
+Example:  
 `run_aracne2regulon.r --expr data/expression.tsv --network data/network.txt --output data/regulons.rds`
 
 ### run_viper.r
@@ -52,7 +52,7 @@ Options:
 		Path to file containing expression of samples for which viper activity scores are desired.
 ```
 
-Example:
+Example:  
 `run_viper.r --regulons data/regulons.rds --expr data/expression.tsv --output data/activity.tsv`
 
 ### viper_report.r
@@ -76,5 +76,5 @@ Options:
 		Name of gene of interest.
 ```
 
-Example:
+Example:  
 `viper_report.r --activity data/activity.tsv --sample sample1 --gene 'ENSG00000169083.15' --output data/sample1-ENSG00000169083.15.png`
