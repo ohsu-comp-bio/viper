@@ -6,8 +6,10 @@ The wrappers are written in R. See `install_packages.r` for the required R packa
 `build.sh` and `meta.yaml` describe the [conda](https://conda.io) package, and there's
 a `Dockerfile`.
 
-The docker container is published to `ohsucompbio/viper`.  
-The conda package is published to `TODO not published yet`.
+The docker container is published to [ohsucompbio/viper`](https://hub.docker.com/r/ohsucompbio/viper/).  
+The conda package is published to [buchanae/ohsu-compbio-viper](https://anaconda.org/buchanae/ohsu-compbio-viper).  
+
+`conda install -c buchanae ohsu-compbio-viper `
 
 # Usage
 
