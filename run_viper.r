@@ -12,13 +12,17 @@ parser <- OptionParser(option_list=list(
         help='Path to RDS file containing network regulons.'),
         
   make_option(c("-e", "--expr"), action="store", type='character',
-        help='Path to file containing expression of samples for which viper activity scores are desired.')		
+        help='Path to file containing expression of samples for which viper activity scores are desired.'),
+
+  make_option("--nes", action="store_true", default=FALSE,
+        help='Use the normalized enrichment score (NES)')
 ))
 
 opt <- parse_args(parser)
 output <- opt$o
 reg_fl <- opt$r
 expr_fl <- opt$e
+nes_fl <- opt$nes
 
 if (is.null(output)) {
   print_help(parser)
@@ -33,16 +37,17 @@ if (is.null(expr_fl)) {
   stop("--expr is required")
 }
 
-cat("Loading network regulons.")
+sessionInfo()
+
+cat("Loading network regulons.\n")
 regul <- readRDS(reg_fl)
 
-cat("Loading expression data.")
+cat("Loading expression data.\n")
 expr_dt <- read.table(expr_fl, row.names=1, sep='\t', check.names=FALSE, header=TRUE)
 expr_s <- as.matrix(expr_dt)
 
-cat("Running VIPER")
-vpres <- viper(expr_s, regul, verbose=TRUE, nes=TRUE)
+cat("Running VIPER\n")
+vpres <- viper(expr_s, regul, verbose=TRUE, nes=nes_fl)
 
-cat("") # "verbose" from viper() doesn't terminate its last line correctly.
-cat("Writing out activity scores")
+cat("\nWriting out activity scores.\n")
 write.table(vpres, file=output, sep="\t", col.names=NA, row.names=TRUE)
