@@ -6,7 +6,7 @@ The wrappers are written in R. See `install_packages.r` for the required R packa
 `build.sh` and `meta.yaml` describe the [conda](https://conda.io) package, and there's
 a `Dockerfile`.
 
-The docker container is published to [ohsucompbio/viper](https://hub.docker.com/r/ohsucompbio/viper/).  
+The docker container is published to [ohsucompbio/viper:1.12-55312ce](https://hub.docker.com/r/ohsucompbio/viper/).  
 
 `docker run ohsucompbio/viper`
 
@@ -58,29 +58,32 @@ Options:
 
 	-e EXPR, --expr=EXPR
 		Path to file containing expression of samples for which viper activity scores are desired.
+
+	--nes
+		Use the normalized enrichment score (NES)
 ```
 
 
 ### viper_report.r
 
-This command generates a visualization of the activity of a regulator gene for a given sample. Output is a PNG image.
+This command generates a visualization of the activity of a list of regulator gene for a given sample. Output is a PNG image for each gene in the list.
 
 Example:  
-`viper_report.r --activity data/activity.tsv --sample sample1 --gene 'ENSG00000169083.15' --output data/sample1-ENSG00000169083.15.png`
+`viper_report.r --activity data/activity.tsv --sample sample1 --genes gene-list.txt --output data/sample1-ENSG00000169083.15.png`
 
 ```
 Usage: viper_report.r [options]
 
 Options:
 	-o OUTPUT, --output=OUTPUT
-		Path to output file, saved as PNG.
+		Path to output directory to store reports.
 
 	-a ACTIVITY, --activity=ACTIVITY
-		Path to VIPER activity output file.
+		Path to VIPER activity data.
 
 	-s SAMPLE, --sample=SAMPLE
 		Name of sample of interest.
 
-	-n GENE, --gene=GENE
-		Name of gene of interest.
+	--genes=GENES
+		Path to file containing a list of genes to generate reports for, one per line.
 ```
