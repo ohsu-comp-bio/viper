@@ -1,6 +1,6 @@
 FROM r-base:3.2.3
 
-RUN R -e 'source("https://bioconductor.org/biocLite.R"); biocLite("Biobase"); biocLite("viper")'
+RUN R -e 'source("https://bioconductor.org/biocLite.R"); biocLite("Biobase"); biocLite("viper");  biocLite("bcellViper")'
 RUN R -e 'install.packages("optparse"); install.packages("ggplot2"); install.packages("reshape")'
 
 WORKDIR /opt/viper
